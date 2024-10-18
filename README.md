@@ -1,4 +1,14 @@
-# jupyterlab_google_analytics
+# jupyterlab_datadog_rum
+
+NOTE: Forked from https://github.com/team-monolith-product/jupyterlab-google-analytics
+The content below has not yet been updated.
+
+TODO:
+- Rename every Google Analytics-related name
+- Get params from settings rather than hard-coding
+- Set userID (extract from URL)
+
+--------
 
 It provides IGA interface. GA tracking ID should be set in the setting file.
 
