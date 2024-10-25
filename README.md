@@ -1,23 +1,6 @@
 # jupyterlab_datadog_rum
 
 NOTE: Forked from https://github.com/team-monolith-product/jupyterlab-google-analytics
-The content below has not yet been updated.
-
-TODO:
-- Rename every Google Analytics-related name
-- Get params from settings rather than hard-coding
-- Set userID (extract from URL)
-
---------
-
-It provides IGA interface. GA tracking ID should be set in the setting file.
-
-```
-interface IGa {
-  gtag: (...args: any[]) => void;
-  config: (options: any) => void;
-}
-```
 
 ## Requirements
 
@@ -34,7 +17,7 @@ interface IGa {
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab_google_analytics
+pip install jupyterlab_datadog_rum
 ```
 
 ## Uninstall
@@ -42,7 +25,7 @@ pip install jupyterlab_google_analytics
 To remove the extension, execute:
 
 ```bash
-pip uninstall jupyterlab_google_analytics
+pip uninstall jupyterlab_datadog_rum
 ```
 
 ## Contributing
@@ -65,7 +48,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the jupyterlab_google_analytics directory
+# Change directory to the jupyterlab_datadog_rum directory
 # Install package in development mode
 pip install -e "."
 # Link your development version of the extension with JupyterLab
@@ -94,12 +77,12 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_google_analytics
+pip uninstall jupyterlab_datadog_rum
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `jupyterlab-google-analytics` within that folder.
+folder is located. Then you can remove the symlink named `jupyterlab-datadog-rum` within that folder.
 
 ### Testing the extension
 

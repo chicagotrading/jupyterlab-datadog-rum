@@ -1,8 +1,8 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
 _commit: v4.2.3
 _src_path: https://github.com/jupyterlab/extension-template
-author_email: lch@team-mono.com
-author_name: ChangHwan Lee
+author_email: joshua.bronson@chicagotrading.com
+author_name: Joshua Bronson
 data_format: string
 file_extension: ''
 has_binder: false
@@ -12,8 +12,8 @@ labextension_name: jupyterlab-google-analytics
 mimetype: ''
 mimetype_name: ''
 project_short_description: A JupyterLab extension.
-python_name: jupyterlab_google_analytics
-repository: https://github.com/team-monolith-product/jupyterlab-google-analytics.git
+python_name: jupyterlab_datadog_rum
+repository: https://github.com/ctcjab/jupyterlab-datadog-rum.git
 test: true
 viewer_name: ''
 

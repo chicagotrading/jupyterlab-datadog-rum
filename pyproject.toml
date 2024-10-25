@@ -3,7 +3,7 @@ requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version>=0
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyterlab_google_analytics"
+name = "jupyterlab_datadog_rum"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"
@@ -33,24 +33,24 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["jupyterlab_google_analytics/labextension"]
+artifacts = ["jupyterlab_datadog_rum/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"jupyterlab_google_analytics/labextension" = "share/jupyter/labextensions/jupyterlab-google-analytics"
-"install.json" = "share/jupyter/labextensions/jupyterlab-google-analytics/install.json"
+"jupyterlab_datadog_rum/labextension" = "share/jupyter/labextensions/jupyterlab-datadog-rum"
+"install.json" = "share/jupyter/labextensions/jupyterlab-datadog-rum/install.json"
 
 [tool.hatch.build.hooks.version]
-path = "jupyterlab_google_analytics/_version.py"
+path = "jupyterlab_datadog_rum/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "jupyterlab_google_analytics/labextension/static/style.js",
-    "jupyterlab_google_analytics/labextension/package.json",
+    "jupyterlab_datadog_rum/labextension/static/style.js",
+    "jupyterlab_datadog_rum/labextension/package.json",
 ]
-skip-if-exists = ["jupyterlab_google_analytics/labextension/static/style.js"]
+skip-if-exists = ["jupyterlab_datadog_rum/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -60,7 +60,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "jupyterlab_google_analytics/labextension"
+build_dir = "jupyterlab_datadog_rum/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"
