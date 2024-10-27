@@ -2,6 +2,8 @@
 
 NOTE: Forked from https://github.com/team-monolith-product/jupyterlab-google-analytics
 
+![](./screenshot.png)
+
 ## Instructions
 
 Use `overrides.json` to configure the extension with
@@ -22,12 +24,6 @@ the settings that it should initialize the DD_RUM object with:
 Ref: https://docs.datadoghq.com/real_user_monitoring/browser/
 
 ## Requirements
-
-### 0.\*.\*
-
-- JupyterLab >= 3.0
-
-### 1.\*.\*
 
 - JupyterLab >= 4.0
 
