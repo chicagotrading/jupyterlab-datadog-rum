@@ -6,13 +6,15 @@ import {
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 declare global {
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   interface Window {
     DD_RUM: IDDRum;
   }
 }
 import { Token } from '@lumino/coreutils';
 
-export const IDDRum = new Token<IDDRum>('jupyterlab-datadog-rum:plugin:IDDRum');
+export const PLUGIN_ID = 'jupyterlab-datadog-rum:plugin';
+export const IDDRum = new Token<IDDRum>(`${PLUGIN_ID}:IDDRum`);
 export interface IDDRum {
   q: any[];
   onReady: (f: (c: any) => void) => void;
@@ -20,8 +22,24 @@ export interface IDDRum {
   setUser: (c: any) => void;
 }
 
+// Ref: https://docs.datadoghq.com/real_user_monitoring/browser/
+interface ISettings {
+  applicationId: string;
+  clientToken: string;
+  env: string;
+  version: string;
+  service: string;
+  sessionSampleRate: number;
+  sessionReplaySampleRate: number;
+  trackUserInteractions: boolean;
+  trackResources: boolean;
+  trackLongTasks: boolean;
+  defaultPrivacyLevel: string;
+  site: string;
+}
+
 const plugin: JupyterFrontEndPlugin<IDDRum> = {
-  id: 'jupyterlab-datadog-rum:plugin',
+  id: PLUGIN_ID,
   autoStart: true,
   provides: IDDRum,
   requires: [ISettingRegistry],
@@ -29,47 +47,48 @@ const plugin: JupyterFrontEndPlugin<IDDRum> = {
     app: JupyterFrontEnd,
     settingRegistry: ISettingRegistry
   ): Promise<IDDRum> => {
-    const setting = await settingRegistry.load(plugin.id);
-    const clientToken = setting.get('clientToken').composite as string;
-    const applicationId = setting.get('applicationId').composite as string;
-    const env = setting.get('env').composite as string;
-    const version = setting.get('version').composite as string;
-    const service = setting.get('service').composite as string;
-    const sessionSampleRate = setting.get('sessionSampleRate').composite as number;
-    const sessionReplaySampleRate = setting.get('sessionReplaySampleRate').composite as number;
-    const trackUserInteractions = setting.get('trackUserInteractions').composite as boolean;
-    const trackResources = setting.get('trackResources').composite as boolean;
-    const trackLongTasks = setting.get('trackLongTasks').composite as boolean;
-    const defaultPrivacyLevel = setting.get('defaultPrivacyLevel').composite as string;
-    const site = setting.get('site').composite as string;
+    console.debug(`${PLUGIN_ID}: activated`);
     window.DD_RUM = {
       q: [],
       onReady: (c: any) => window.DD_RUM.q.push(c),
       init: (c: any) => {},
-      setUser: (c: any) => {},
+      setUser: (c: any) => {}
     };
+    const settings = (await settingRegistry.load(plugin.id)).composite
+      .private as unknown as ISettings;
+    if (!settings.applicationId || !settings.clientToken) {
+      console.warn(`${PLUGIN_ID}: applicationId or clientToken not set`);
+      return window.DD_RUM;
+    }
     const script = document.createElement('script');
     script.async = true;
-    script.src = 'https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js';
-    document.head.appendChild(script)
+    script.src =
+      'https://www.datadoghq-browser-agent.com/us1/v5/datadog-rum.js';
+    document.head.appendChild(script);
     window.DD_RUM.onReady(() => {
       window.DD_RUM.init({
-        applicationId: applicationId,
-        clientToken: clientToken,
-        site: site,
-        service: service,
-        env: env || getMatch(/jupyterhub-([^.]+)/, window.location.hostname),
-        version: version,
-        sessionSampleRate: sessionSampleRate,
-        sessionReplaySampleRate: sessionReplaySampleRate,
-        trackUserInteractions: trackUserInteractions,
-        trackResources: trackResources,
-        trackLongTasks: trackLongTasks,
-        defaultPrivacyLevel: defaultPrivacyLevel,
+        applicationId: settings.applicationId,
+        clientToken: settings.clientToken,
+        site: settings.site,
+        service: settings.service,
+        env:
+          settings.env ||
+          getMatch(/jupyterhub-([^.]+)/, window.location.hostname),
+        version: settings.version,
+        sessionSampleRate: settings.sessionSampleRate,
+        sessionReplaySampleRate: settings.sessionReplaySampleRate,
+        trackUserInteractions: settings.trackUserInteractions,
+        trackResources: settings.trackResources,
+        trackLongTasks: settings.trackLongTasks,
+        defaultPrivacyLevel: settings.defaultPrivacyLevel
       });
+      console.debug(`${PLUGIN_ID}: RUM initialized`);
       // On JupyterHub, the userId will appear in the URL path after /user/
-      const userId = getMatch(/\/user\/([^\/]+)\//, window.location.pathname);
-      if (userId) window.DD_RUM.setUser({ id: userId });
+      const userId = getMatch(/\/user\/([^/]+)\//, window.location.pathname);
+      if (userId) {
+        window.DD_RUM.setUser({ id: userId });
+        console.debug(`${PLUGIN_ID}: detected user: ${userId}`);
+      }
     });
     return window.DD_RUM;
   }

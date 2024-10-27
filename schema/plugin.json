@@ -1,75 +1,15 @@
 {
   "additionalProperties": false,
-  "description": "Ref: https://docs.datadoghq.com/real_user_monitoring/browser/",
+  "description": "",
   "jupyter.lab.shortcuts": [],
-  "title": "jupyterlab-datadog-rum",
+  "title": "",
   "type": "object",
   "properties": {
-    "applicationId": {
-      "default": "",
+    "private": {
+      "default": {},
       "description": "",
-      "title": "applicationId",
-      "type": "string"
-    },
-    "clientToken": {
-      "default": "",
-      "description": "",
-      "title": "clientToken",
-      "type": "string"
-    },
-    "defaultPrivacyLevel": {
-      "default": "mask-user-input",
-      "description": "",
-      "title": "defaultPrivacyLevel",
-      "type": "string"
-    },
-    "env": {
-      "default": "",
-      "description": "Leave blank to infer from URL, e.g. jupyterhub-env.example.com",
-      "title": "env",
-      "type": "string"
-    },
-    "version": {
-      "default": "",
-      "description": "",
-      "title": "version",
-      "type": "string"
-    },
-    "service": {
-      "default": "jupyterhub",
-      "description": "",
-      "title": "service",
-      "type": "string"
-    },
-    "sessionReplaySampleRate": {
-      "default": 20,
-      "description": "",
-      "title": "sessionReplaySampleRate",
-      "type": "number"
-    },
-    "sessionSampleRate": {
-      "default": 100,
-      "description": "",
-      "title": "sessionSampleRate",
-      "type": "number"
-    },
-    "trackLongTasks": {
-      "default": true,
-      "description": "",
-      "title": "trackLongTasks",
-      "type": "boolean"
-    },
-    "trackResources": {
-      "default": true,
-      "description": "",
-      "title": "trackResources",
-      "type": "boolean"
-    },
-    "trackUserInteractions": {
-      "default": true,
-      "description": "",
-      "title": "trackUserInteractions",
-      "type": "boolean"
+      "title": "",
+      "type": "object"
     }
   }
 }

@@ -2,6 +2,25 @@
 
 NOTE: Forked from https://github.com/team-monolith-product/jupyterlab-google-analytics
 
+## Instructions
+
+Use `overrides.json` to configure the extension with
+the settings that it should initialize the DD_RUM object with:
+
+```json
+{
+  "jupyterlab-datadog-rum:plugin": {
+    "private": {
+      "applicationId": "...",
+      "clientToken": "...",
+      ...
+    }
+  }
+}
+```
+
+Ref: https://docs.datadoghq.com/real_user_monitoring/browser/
+
 ## Requirements
 
 ### 0.\*.\*
