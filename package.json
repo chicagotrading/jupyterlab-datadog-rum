@@ -1,6 +1,6 @@
 {
     "name": "jupyterlab-datadog-rum",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "Datadog Real User Monitoring (RUM) for Jupyter Lab",
     "keywords": [
         "jupyter",
